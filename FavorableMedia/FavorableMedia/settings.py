@@ -80,7 +80,7 @@ DATABASES = {
         'ENGINE': 'django.contrib.gis.db.backends.mysql',
         'NAME': 'fav_media',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': DB_PASS,
         'HOST': '',
         'PORT': '',
     },
