@@ -1,0 +1,68 @@
+{% include 'website/base.html' %}
+<script>
+    $(document).ready(function () {
+        $(document).on("click", ".rd-mobilemenu", function (){
+            $(".rd-mobilemenu").removeClass('active');
+        });
+
+        $(document).on("click", ".stuck_container a", function (){
+            //$(".rd-mobilemenu").removeClass('active');
+            //$(".nav_head").removeClass('active');
+            //var text= $(this).text();
+            //$(this).addClass("active");
+            //alert(text);
+            $(".stuck_container").hide();
+
+        });
+
+        //$(document).on("click", ".rd-mobilemenu a", function (){
+            //$(".rd-mobilemenu").removeClass('active');
+            //$(".nav_head").removeClass('active');
+            //var text= $(this).text();
+            //$(this).addClass("active");
+            //alert("asdas");
+            //$(".rd-mobilepanel").hide();
+
+
+        //});
+
+        $(window).scroll(function () {
+            var doc_width = $(document).width();
+            if (doc_width > 767) {
+                var offset = $(".container").offset().top;
+
+                if ($(window).scrollTop() >= offset) {
+                    $(".stuck_container").show();
+                }
+            }
+        });
+    });
+</script>
+<div class="page">
+
+  <header>
+    <div class="container">
+      <div class="brand">
+        <!--<h1 class="brand_name"><a href="./">Favorable Media</a></h1>-->
+        <!--<p class="brand_slogan">Media</p>-->
+          <h1 class="brand_name"><a href="/"><img  class="brand_clip" src="{{ static_url}}website/images/header/fav_yellow.png" /></a></h1>
+      </div><a href="callto:#" class="fa-whatsapp">800-2345-6789</a>
+      <p>One of our representatives will happily contact you within 24 hours. For urgent needs call us at</p>
+    </div>
+    <div id="stuck_container" class="stuck_container">
+      <div class="container">
+        <nav class="nav">
+          <ul data-type="navbar" data-toggle="collapse" class="sf-menu">
+            <li class="nav_head"><a href="/">Home</a>
+            </li>
+              <li class="nav_head"><a href="#services">Services</a>
+            </li>
+            <li class="nav_head"><a href="#about">About Us</a>
+            </li>
+            <li class="nav_head"><a href="#contact">Contact</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>

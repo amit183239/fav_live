@@ -1,0 +1,193 @@
+<script>
+    function validateEmail(email) {
+        var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+        return re.test(email);
+    }
+
+    function nameChange() {
+        var name= $('#first_name').val();
+        if (name.length > 3)
+        {
+            $('#first_name').css("box-shadow","0 0 10px green");
+        }
+        else{
+            $('#first_name').css("box-shadow","0 0 10px red");
+        }
+    }
+
+    function emailValidation() {
+        var email =$('#email_text').val();
+        if (validateEmail(email))
+        {
+            $('#email_text').css("box-shadow","0 0 10px green");
+        }
+        else{
+            $('#email_text').css("box-shadow","0 0 10px red");
+        }
+    }
+
+    function validateMobile() {
+        var mobile = $('#mobile_phone').val();
+        if ($.isNumeric(mobile))
+        {
+            $('#mobile_phone').css("box-shadow","0 0 10px green");
+        }
+        else
+        {
+            $('#mobile_phone').css("box-shadow","0 0 10px red");
+        }
+
+    }
+
+    function validateCity() {
+        var city = $('#city').val();
+        if (city.length >3)
+        {
+            $('#city').css("box-shadow","0 0 10px green");
+        }
+        else
+        {
+            $('#city').css("box-shadow","0 0 10px red");
+        }
+    }
+
+    function validateMessage() {
+        var text_message = $('#text_message').val();
+        if (text_message.length>0){
+            $('#text_message').css("box-shadow","0 0 10px green");
+        }
+        else{
+            $('#text_message').css("box-shadow","0 0 10px red");
+        }
+    }
+
+    function do_submit() {
+        var email =$('#email_text').val();
+        var name= $('#first_name').val();
+        var mobile = $('#mobile_phone').val();
+        var text_message = $('#text_message').val();
+        var city =$('#city').val();
+
+        var to_return = true;
+        if (city.length < 4){
+            to_return = false;
+            $('#city').css("box-shadow","0 0 10px red");
+        }
+        if (text_message.length==0){
+            to_return = false;
+            $('#text_message').css("box-shadow","0 0 10px red");
+        }
+        if (!$.isNumeric(mobile))
+        {
+            to_return = false;
+            $('#mobile_phone').css("box-shadow","0 0 10px red");
+        }
+        if (name.length < 4)
+        {
+            to_return = false;
+            $('#first_name').css("box-shadow","0 0 10px red");
+        }
+        if (!validateEmail(email))
+        {
+            to_return = false;
+            $('#email_text').css("box-shadow","0 0 10px red");
+        }
+        return to_return;
+
+    }
+
+    $(document).ready(function () {
+        $('#first_name').val('');
+        $('#email_text').val('');
+        $('#company_name').val('');
+        $('#mobile_phone').val('');
+        $('#text_message').val('');
+        $('#city').val('');
+    });
+</script>
+    <section class="well2">
+    <div class="container">
+        <div class="row">
+            <div class="grid_6">
+                <!--<td width="50%" class="hide_row">-->
+                    <a name="about"><h2>About Us</h2></a><img src="{{ static_url}}website/images/about_us.png" alt="">
+                    <p>Now a day’s most of the business uses social media but only few are able to take advantage of it.</p>
+                    <p>And this means you’re losing a lot of “favorable” circumstances to intensify your business.</p>
+                    <p>If done correctly, Social media can be <strong>Favorable</strong> for your success.</p>
+                    <p><strong>Favorable Media</strong> strategies which platform to use and hunt ways for maximum impact and exposure</p>
+                <!--</td>-->
+                <!--<td>-->
+            </div>
+
+            <div class="grid_6">
+                    <a name="contact"><h2>Contact</h2></a>
+                    <form method="POST" action ="/contact/post/" enctype="multipart/form-data" onsubmit="return do_submit();">
+                        {% csrf_token %}
+                        <Table class='table-bordered'>
+                              <tbody align="center">
+                                    <tr>
+                                        <th colspan='2' class="table_header"><h4>Fill out the form and start being Favorable.</h4></th>
+                                    </tr>
+                                    <tr>
+                                        <td colspan='2'><input  id='first_name' type='text' class="border_color" required
+                                                                name="first_name"
+                                                    placeholder='Enter Name'
+                                                    onChange=nameChange();
+                                                    />
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan='2'><input  type='text' id="email_text" required
+                                                                name="email"
+                                                                placeholder='Enter email'
+                                                                onchange=emailValidation();
+                                                                />
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan='2'><input  type='text' id="company_name"
+                                                                name="company"
+                                                                placeholder='Company Name'
+                                                                />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan='2'><input  type='text' id="mobile_phone" required
+                                                                name="phone"
+                                                    placeholder='Phone No.'
+                                                    onchange=validateMobile();
+                                                        />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan='2'><input  type='text' id="city" required
+                                                                name="city"
+                                                    placeholder='City'
+                                                    onchange=validateCity();
+                                                    />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan='2'><textarea  class="textinput" rows="5" id="text_message"
+                                                                placeholder='Enter Message' required
+                                                                   name="text_area"
+                                                                   onchange=validateMessage();
+                                                                ></textarea></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan='2'><input type='submit' value='Submit'/></td>
+                                    </tr>
+                              </tbody>
+                        </Table>
+                    </form>
+                </div>
+            </div>
+                <!--</td>-->
+            <!--</tr>-->
+        <!--</table>-->
+    </div>
+        </section>
+
